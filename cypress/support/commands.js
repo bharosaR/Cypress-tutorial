@@ -23,3 +23,16 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add("login_user", (username, password) => {
+  cy.visit("https://www.saucedemo.com/");
+  cy.url().should("eq", "https://www.saucedemo.com/");
+  cy.get('[data-test="login-button"]').should("have.value", "Login"); //assertion
+  cy.get('[data-test="login-button"]').should(
+    "have.css",
+    "background-color",
+    "rgb(61, 220, 145)"
+  );
+  cy.get("#user-name").type(username);
+  cy.get("#password").type(password, { log: false });
+  cy.get("#login-button").click();
+});
